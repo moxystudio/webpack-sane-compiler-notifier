@@ -1,7 +1,7 @@
 {
   "name": "webpack-sane-compiler-notifier",
   "description": "Notify webpack compilation status to your operating system when using webpack-sane-compiler",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "keywords": [
     "webpack",
     "sane",
