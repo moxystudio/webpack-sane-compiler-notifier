@@ -69,7 +69,10 @@ function startNotifying(compiler, options) {
     .on('error', onError)
     .on('end', onEnd);
 
-    return stopNotifying;
+    return {
+        stop: stopNotifying,
+        options,
+    };
 }
 
 module.exports = startNotifying;
