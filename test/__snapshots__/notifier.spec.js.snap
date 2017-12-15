@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should provide the internal options 1`] = `
+Object {
+  "icon": "<PROJECT_ROOT>/webpack-logo.png",
+  "sound": false,
+  "title": "foo",
+}
+`;

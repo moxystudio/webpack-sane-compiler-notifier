@@ -4,7 +4,10 @@ const path = require('path');
 const EventEmitter = require('events');
 const readPkgUp = require('read-pkg-up');
 const notifier = require('node-notifier');
+const serializer = require('jest-serializer-path');
 const startNotifying = require('..');
+
+expect.addSnapshotSerializer(serializer);
 
 jest.mock('node-notifier', () => ({
     notify: jest.fn(),
@@ -17,11 +20,11 @@ const sound = false;
 beforeEach(jest.clearAllMocks);
 
 it('should report a build success', () => {
-    const saneCompiler = new EventEmitter();
+    const compiler = new EventEmitter();
 
-    startNotifying(saneCompiler);
-    saneCompiler.emit('begin');
-    saneCompiler.emit('end');
+    startNotifying(compiler);
+    compiler.emit('begin');
+    compiler.emit('end');
 
     expect(notifier.notify).toHaveBeenCalledTimes(1);
     expect(notifier.notify.mock.calls[0][0]).toMatchObject({
@@ -33,11 +36,11 @@ it('should report a build success', () => {
 });
 
 it('should report a build error', () => {
-    const saneCompiler = new EventEmitter();
+    const compiler = new EventEmitter();
 
-    startNotifying(saneCompiler);
-    saneCompiler.emit('begin');
-    saneCompiler.emit('error', new Error('foo'));
+    startNotifying(compiler);
+    compiler.emit('begin');
+    compiler.emit('error', new Error('foo'));
 
     expect(notifier.notify).toHaveBeenCalledTimes(1);
     expect(notifier.notify.mock.calls[0][0]).toMatchObject({
@@ -49,25 +52,25 @@ it('should report a build error', () => {
 });
 
 it('should not report subsequent successful builds', () => {
-    const saneCompiler = new EventEmitter();
+    const compiler = new EventEmitter();
 
-    startNotifying(saneCompiler);
-    saneCompiler.emit('begin');
-    saneCompiler.emit('end');
-    saneCompiler.emit('begin');
-    saneCompiler.emit('end');
+    startNotifying(compiler);
+    compiler.emit('begin');
+    compiler.emit('end');
+    compiler.emit('begin');
+    compiler.emit('end');
 
     expect(notifier.notify).toHaveBeenCalledTimes(1);
 });
 
 it('should report a successful build after a failed one', () => {
-    const saneCompiler = new EventEmitter();
+    const compiler = new EventEmitter();
 
-    startNotifying(saneCompiler);
-    saneCompiler.emit('begin');
-    saneCompiler.emit('error', new Error('foo'));
-    saneCompiler.emit('begin');
-    saneCompiler.emit('end');
+    startNotifying(compiler);
+    compiler.emit('begin');
+    compiler.emit('error', new Error('foo'));
+    compiler.emit('begin');
+    compiler.emit('end');
 
     expect(notifier.notify).toHaveBeenCalledTimes(2);
     expect(notifier.notify.mock.calls[0][0].message).toMatch('foo');
@@ -75,15 +78,15 @@ it('should report a successful build after a failed one', () => {
 });
 
 it('should allow a custom title, icon and sound options', () => {
-    const saneCompiler = new EventEmitter();
+    const compiler = new EventEmitter();
 
-    startNotifying(saneCompiler, {
+    startNotifying(compiler, {
         title: 'foo',
         icon: 'bar',
         sound: true,
     });
-    saneCompiler.emit('begin');
-    saneCompiler.emit('end');
+    compiler.emit('begin');
+    compiler.emit('end');
 
     expect(notifier.notify).toHaveBeenCalledTimes(1);
     expect(notifier.notify.mock.calls[0][0]).toMatchObject({
@@ -95,18 +98,26 @@ it('should allow a custom title, icon and sound options', () => {
 });
 
 it('should stop notifying if stopNotifying was called', () => {
-    const saneCompiler = new EventEmitter();
+    const compiler = new EventEmitter();
 
-    const stopNotifying = startNotifying(saneCompiler, {
+    const { stop } = startNotifying(compiler, {
         title: 'foo',
         icon: 'bar',
         sound: true,
     });
 
-    stopNotifying();
+    stop();
 
-    saneCompiler.emit('begin');
-    saneCompiler.emit('end');
+    compiler.emit('begin');
+    compiler.emit('end');
 
     expect(notifier.notify).toHaveBeenCalledTimes(0);
+});
+
+it('should provide the internal options', () => {
+    const compiler = new EventEmitter();
+
+    const { options } = startNotifying(compiler, { title: 'foo' });
+
+    expect(options).toMatchSnapshot();
 });

@@ -29,10 +29,11 @@ Notify webpack compilation status to your operating system when using [webpack-s
 ```js
 const startNotifying = require('webpack-sane-compiler-notifier');
 
-const stopNotifying = startNotifying(compiler, {/* options */});
+const { stop, options } = startNotifying(compiler, {/* options */});
 
 // Call compiler.run() or compiler.watch() to start a compilation and you will see OS notifications showing up
-// Additionally, calling stopNotifying() will stop listening to the compiler events
+// Calling stop() will stop listening to the compiler events
+// Furthermore, you have access to the options that were computed by the merge of provided options and the defaults
 ```
 
 ### Available options:
