@@ -63,6 +63,6 @@
     "node-notifier": "^5.1.2",
     "read-pkg-up": "^3.0.0",
     "strip-ansi": "^4.0.0",
-    "webpack-sane-compiler-reporter": "^2.0.0"
+    "webpack-sane-compiler-reporter": "^3.0.0"
   }
 }
