@@ -47,7 +47,7 @@ function startNotifying(compiler, options) {
     const onError = (err) => {
         lastBuildSucceeded = false;
 
-        const message = stripAnsi(renderers.error(err).trim());
+        const message = stripAnsi(renderers.error(err));
 
         notify(message);
     };
