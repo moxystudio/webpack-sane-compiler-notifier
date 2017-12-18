@@ -36,7 +36,7 @@ const { stop, options } = startNotifying(compiler, {/* options */});
 // Furthermore, you have access to the options that were computed by the merge of provided options and the defaults
 ```
 
-### Available options:
+### Available options
 
 | Name   | Description   | Type     | Default |
 | ------ | ------------- | -------- | ------- |
