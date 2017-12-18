@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/moxystudio/webpack-sane-compiler-notifier/compare/v2.0.0...v2.0.1) (2017-12-18)
+
+
+### Bug Fixes
+
+* **package:** update webpack-sane-compiler-reporter to version 3.0.0 ([25adf95](https://github.com/moxystudio/webpack-sane-compiler-notifier/commit/25adf95))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/moxystudio/webpack-sane-compiler-notifier/compare/v1.0.0...v2.0.0) (2017-12-15)
 
