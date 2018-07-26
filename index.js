@@ -32,11 +32,12 @@ function createNotifier({ title, icon, sound }) {
 }
 
 function startNotifying(compiler, options) {
-    options = Object.assign({
+    options = {
         title: undefined,
         icon: path.join(__dirname, 'webpack-logo.png'),
         sound: false,
-    }, options);
+        ...options,
+    };
 
     // Read the default title only if not set to avoid doing unnecessary I/O
     options.title = options.title || getDefaultTitle();
