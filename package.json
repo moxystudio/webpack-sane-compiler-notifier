@@ -62,7 +62,7 @@
   "dependencies": {
     "node-notifier": "^5.1.2",
     "read-pkg-up": "^4.0.0",
-    "strip-ansi": "^4.0.0",
+    "strip-ansi": "^5.0.0",
     "webpack-sane-compiler-reporter": "^3.0.2"
   }
 }
