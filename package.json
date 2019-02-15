@@ -57,7 +57,7 @@
     "jest": "^23.4.2",
     "jest-serializer-path": "^0.1.5",
     "lint-staged": "^7.0.0",
-    "standard-version": "^4.2.0"
+    "standard-version": "^5.0.0"
   },
   "dependencies": {
     "node-notifier": "^5.1.2",
